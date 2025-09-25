@@ -1,78 +1,78 @@
-AIStateExporter
+# AIStateExporter
 
-A Unity Editor-only export tool for project state.
-It collects scene hierarchy, components, script asset paths & GUIDs, dependencies, diffs, and more — making it easy to share your Unity project state with AI tools.
+A **Unity Editor-only export tool** for development state.  
+It generates text summaries of scene hierarchy, components, script paths & GUIDs, dependencies, and diffs — making it ideal for sharing the state of your project with AI assistants.
 
-⸻
+---
 
-✨ Features
+### ✨ Features
 
-Core
-	•	App / Build Info
-ProductName / Version / Unity Version / Platform / Scene / ColorSpace / RenderPipeline / ScriptingBackend
-	•	Hierarchy Export
-Scene hierarchy tree (depth & node limit)
-Tag / Layer / Active state / Prefab asset path & GUID
-	•	Components / Scripts
-Component list
-MonoBehaviour → script asset path & GUID
-	•	Value Peek (optional)
-Public fields/properties of int, float, bool, string, Vector types
-	•	Packages Summary
-Extract dependencies from Packages/manifest.json
+#### Basic
+- **App / Build Info**  
+  ProductName / Version / Unity Version / Platform / Scene / ColorSpace / RenderPipeline / ScriptingBackend
+- **Hierarchy Export**  
+  Hierarchy tree (max depth / node limit) with Tag / Layer / Active state / Prefab asset path & GUID
+- **Components / Scripts**  
+  Component list, with MonoBehaviour → script asset path & GUID
+- **Field Preview (optional)**  
+  int / float / bool / string / Vector public fields & properties
+- **Package Summary**  
+  Summarizes dependencies from `Packages/manifest.json`
 
-Extended
-	•	Diff Export
-Show differences (+/-) compared to last export
-	•	Dependency List
-External assets referenced in the scene (Prefab, Material, ScriptableObject, etc.)
-	•	Script Stats / Unused Check
-	•	Number of scripts / total lines of code
-	•	List unused scripts not referenced by scenes or prefabs
-	•	Export Formats
-	•	Markdown (default)
-	•	JSON (summary)
-	•	CSV (object/component counts)
-	•	ZIP (large outputs)
-	•	Runtime Snapshot (RuntimeSnapshot.cs)
-FPS / GC memory / GPU / CPU / Scene name etc., copyable at runtime with hotkey (F12)
+#### Extended
+- **Diff Export**: show added/removed differences compared to the last export  
+- **Dependency List**: assets referenced in the scene (Prefab, Material, ScriptableObject, etc.)  
+- **Script Stats / Unused Check**  
+  - Total script count & line count  
+  - Unused scripts not referenced in scenes or prefabs  
+- **Multiple Output Formats**  
+  - Markdown (default)  
+  - JSON (summary)  
+  - CSV (object & component counts)  
+  - ZIP (for large output)  
+- **Runtime Snapshot (RuntimeSnapshot.cs)**  
+  Capture FPS / GC memory / GPU / CPU / Scene name while running, copied via hotkey (**F12**)  
 
-⸻
+---
 
-📂 Folder Structure
+### 📂 Folder Structure
 
-Assets/IGNORANZ PROJECT/AIStateExporter/
-├─ Editor/
-│  ├─ AIStateExporter.cs          // Main UI (EditorWindow)
-│  ├─ AIStateExporter_Utils.cs    // Common utilities
-│  ├─ AIStateExporter_Diff.cs     // Diff export
-│  ├─ AIStateExporter_Depend.cs   // Dependency analysis
-│  ├─ AIStateExporter_Script.cs   // Script stats / unused check
-│  └─ AIStateExporter_Formats.cs  // JSON/CSV/ZIP export
-└─ Runtime/
-   └─ RuntimeSnapshot.cs          // Runtime snapshot
+```plaintext
+Assets/
+└─ IGNORANZ PROJECT/
+   └─ AIStateExporter/
+      ├─ Editor/
+      │  ├─ AIStateExporter.cs          // Main UI (EditorWindow)
+      │  ├─ AIStateExporter_Utils.cs    // Common utilities
+      │  ├─ AIStateExporter_Diff.cs     // Diff export
+      │  ├─ AIStateExporter_Depend.cs   // Dependency analysis
+      │  ├─ AIStateExporter_Script.cs   // Script stats & unused check
+      │  └─ AIStateExporter_Formats.cs  // JSON/CSV/ZIP output
+      └─ Runtime/
+         └─ RuntimeSnapshot.cs          // Runtime snapshot
+```
 
+---
 
-⸻
+### 🚀 Usage
 
-🚀 Usage
+#### Editor Export
+1. Open from Unity menu **Tools > AI Export > Open Exporter**  
+2. Check the sections you want  
+3. **Refresh** for preview → **Copy** to clipboard, or **Save** to file  
 
-Editor Export
-	1.	From Unity menu: Tools > AI Export > Open Exporter
-	2.	Check sections you want to include
-	3.	Refresh to preview → Copy to clipboard, Save to file
+#### Diff Mode
+- Enable **Include Diff** to show differences (+/-) compared to the last export  
 
-Diff Mode
-	•	Enable Include Diff to see differences against the last export
+#### Runtime Snapshot
+- Place `RuntimeSnapshot` in the scene  
+- Press **F12** while running to copy runtime info  
 
-Runtime Snapshot
-	•	Place RuntimeSnapshot in your scene
-	•	During Play Mode, press F12 to copy runtime stats
+---
 
-⸻
+### 📝 Example Output
 
-📝 Example Output
-
+```plaintext
 ## APP / BUILD
 Product: MyUnityGame
 Version: 0.1.0
@@ -105,19 +105,19 @@ RenderPipeline: UniversalRenderPipelineAsset
 - Total Lines: ~38,200
 - Unused:
   - Assets/Scripts/Old/LegacyAI.cs
+```
 
+---
 
-⸻
+### ⚙️ Notes
+- **Editor only** (not included in build)  
+- Field preview supports only lightweight types (Mesh, Texture, AudioClip contents are excluded)  
+- For large scenes, adjust **Max Nodes** or **Hard Char Limit**  
+- When sharing externally, always enable **Redact Paths / GUIDs**  
 
-⚙️ Notes
-	•	Editor-only (excluded from builds)
-	•	Value peek only supports lightweight types (not Mesh/Texture/Audio data)
-	•	For large scenes, adjust Max Nodes or Hard Char Limit
-	•	When sharing externally, always enable Redact Paths / GUIDs
+---
 
-⸻
+### 📜 License
 
-📜 License
-
-MIT License
-(But be mindful of sensitive project information before sharing exports)
+MIT License  
+(Handle confidential project information responsibly.)
